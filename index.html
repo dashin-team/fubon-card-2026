@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="referrer" content="no-referrer" />
+  <title>2026 富邦信用卡帳單與收支表</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="lock-screen" class="lock">
+    <div class="lock-card">
+      <p class="lock-kicker">Private ledger</p>
+      <h1>2026 富邦信用卡帳單與收支表</h1>
+      <p class="lock-lead">請輸入密碼解鎖</p>
+      <label class="sr-only" for="pw">密碼</label>
+      <input id="pw" type="password" autocomplete="current-password" inputmode="numeric" placeholder="請輸入密碼" />
+      <button id="unlock-btn" type="button" class="btn primary">解鎖</button>
+      <label class="remember">
+        <input id="remember" type="checkbox" checked />
+        記住本次瀏覽（關閉分頁前不必再輸入）
+      </label>
+      <p id="lock-error" class="lock-error" hidden>密碼錯誤，請再試一次</p>
+      <p id="lock-status" class="lock-status" hidden></p>
+    </div>
+  </div>
+
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <div class="topbar-text">
+        <p class="eyebrow">2026 個人帳單</p>
+        <h1 id="app-title">信用卡帳單與收支表</h1>
+      </div>
+      <button id="lock-btn" type="button" class="btn ghost" title="鎖定並清除本次瀏覽">鎖定</button>
+    </header>
+
+    <nav class="tabs desktop-tabs" aria-label="主要分頁">
+      <button type="button" data-tab="wrap" class="tab is-on">趣味回顧</button>
+      <button type="button" data-tab="budget" class="tab">每月收支表</button>
+      <button type="button" data-tab="analyze" class="tab">消費分析</button>
+      <button type="button" data-tab="ledger" class="tab">完整明細</button>
+    </nav>
+
+    <main id="main" class="main"></main>
+
+    <nav class="tabs mobile-tabs" aria-label="手機分頁">
+      <button type="button" data-tab="wrap" class="tab is-on"><span>回顧</span></button>
+      <button type="button" data-tab="budget" class="tab"><span>收支</span></button>
+      <button type="button" data-tab="analyze" class="tab"><span>分析</span></button>
+      <button type="button" data-tab="ledger" class="tab"><span>明細</span></button>
+    </nav>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
