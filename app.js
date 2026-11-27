@@ -125,10 +125,14 @@
   }
 
   async function tryUnlock(password, persist) {
+    password = String(password || "").trim();
     showError("");
     setStatus("解密中…");
     $("unlock-btn").disabled = true;
     try {
+      if (!window.crypto || !crypto.subtle) {
+        throw new Error("crypto");
+      }
       const res = await fetch("payload.json", { cache: "no-store" });
       if (!res.ok) throw new Error("load");
       const payload = await res.json();
@@ -138,8 +142,15 @@
       if (persist) sessionStorage.setItem(SESSION_KEY, JSON.stringify(obj));
       else sessionStorage.removeItem(SESSION_KEY);
       enterApp();
-    } catch {
-      showError("密碼錯誤，請再試一次");
+    } catch (err) {
+      const kind = err && err.message;
+      if (kind === "crypto") {
+        showError("這個瀏覽器不支援網頁解密（Web Crypto）。請改用較新的瀏覽器，或改用 HTTPS 開啟。");
+      } else if (kind === "load" || err instanceof TypeError) {
+        showError("帳單資料載入失敗，請重新整理後再試。");
+      } else {
+        showError("密碼錯誤，請再試一次");
+      }
       setStatus("");
       pwInput.value = "";
       pwInput.focus();
@@ -160,6 +171,8 @@
   }
 
   function enterApp() {
+    setStatus("");
+    showError("");
     lockScreen.hidden = true;
     appEl.hidden = false;
     $("app-title").textContent = data.meta.title;
